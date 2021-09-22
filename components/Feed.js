@@ -11,7 +11,7 @@ function Feed() {
             <Stories />
             {/* input */}
             <InputBox />
-            {/* feed */}
+            {/* posts */}
             <Posts />
            </div>
             
