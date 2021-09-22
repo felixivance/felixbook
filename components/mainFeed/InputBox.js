@@ -3,11 +3,12 @@ import Image from 'next/image';
 import { EmojiHappyIcon,  } from '@heroicons/react/outline';
 import { CameraIcon, VideoCameraIcon } from '@heroicons/react/solid';
 import { useRef, useState } from "react";
-import { db, storage } from '../../firebase';
+import { auth, db, storage } from '../../firebase';
 import firebase from "firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function InputBox() {
-    const [session] = useSession();
+    const [user] = useAuthState(auth);
 
     const [input,setInputState] =  useState('');
     const inputRef = useRef(null);
@@ -23,9 +24,9 @@ function InputBox() {
 
         db.collection('posts').add({
             message: inputRef.current.value,
-            name: session.user.name,
-            email: session.user.email,
-            image: session.user.image,
+            name: user.displayName,
+            email: user.email,
+            image: user.photoURL,
             timestamp : firebase.firestore.FieldValue.serverTimestamp()
 
         }).then((doc)=>{
@@ -70,12 +71,12 @@ function InputBox() {
         <div className="bg-white p-2 mt-6 rounded-2xl shadow-md font-medium">
            <div className="flex space-x-4 p-4 items-center">
             {
-                session && (
-                    <Image src={session.user.image} className="rounded-full" width={40} height={40} layout="fixed"/>
+                user && (
+                    <Image src={user.photoURL} className="rounded-full" width={40} height={40} layout="fixed"/>
                 )
             }
             <form className="flex flex-1">
-                <input type="text" placeholder={`whats on your mind ${session ? session.user.name : ''} ?`} 
+                <input type="text" placeholder={`whats on your mind ${user ? user.displayName : ''} ?`} 
                 className="rounded-full h-12 bg-gray-100 flex-grow px-5 focus:outline-none" ref={inputRef}/>
                 <button type="submit" className="hidden" onClick={sendPost}></button>
             </form>
