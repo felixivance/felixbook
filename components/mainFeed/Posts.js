@@ -11,9 +11,10 @@ function Posts() {
     return (
         <div className="">
             {
-                uploadedPosts?.docs.map(post=>(
+                uploadedPosts?.docs.map((post,key)=>(
                     <Post
-                        key={post.id}
+                        key={key}
+                        id={post.id}
                         name={post.data().name}
                         message={post.data().message}
                         email = {post.data().email}

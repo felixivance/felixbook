@@ -5,14 +5,14 @@ import Header from '../components/header/Header'
 import Login from '../components/Login';
 import Sidebar from '../components/Sidebar';
 
-export default function Home({session}) {
+export default function Home() {
 
-  if(!session) return <Login/>;
+  // if(!session) return <Login/>;
 
   return (
     <div className="h-screen bg-gray-100 overflow-hidden">
       <Head>
-        <title>Facebook 2.0</title>
+        <title>Felix Book (FB 2.0)</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -30,13 +30,13 @@ export default function Home({session}) {
   )
 }
 
-export async function getServerSideProps(context){
+// export async function getServerSideProps(context){
   //get user
-  const session = await getSession(context);
+  // const session = await getSession(context);
 
-  return {
-    props:{
-      session:session
-    }
-  }
-} 
+  // return {
+  //   props:{
+  //     session:session
+  //   }
+  // }
+// } 

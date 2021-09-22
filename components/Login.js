@@ -1,7 +1,24 @@
-import { signIn } from 'next-auth/client';
 import Image from 'next/image';
+import { auth, db, provider } from '../firebase';
+import firebase from "firebase";
 
 function Login() {
+    const  signIn  =()=>{
+        
+        auth.signInWithPopup(provider).then((response)=>{
+            console.log(response);
+            db.collection('users').doc(response.user.uid).set({
+                email: response.user.email,
+                lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
+                photoUrl: response.user.photoURL,
+                displayName: response.user.displayName
+              }).then((res)=>{
+                  
+              })
+        }).catch(alert);
+       
+    }
+
     return (
         <div className="grid place-items-center">
             <Image src="https://links.papareact.com/t4i" height={400} width={400} objectFit="contain"/>

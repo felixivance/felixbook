@@ -2,12 +2,20 @@ import Image from 'next/image';
 import { BellIcon,ChatIcon, ChevronDownIcon, HomeIcon, UserGroupIcon, ViewGridIcon } from "@heroicons/react/solid";
 import { FlagIcon, PlayIcon, SearchIcon, ShoppingCartIcon} from '@heroicons/react/outline'
 import HeaderIcon from './HeaderIcon';
-import {  getSession, signOut, useSession } from 'next-auth/client';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { auth } from '../../firebase';
+import { useRouter } from 'next/dist/client/router';
 
 function Header() {
-    const [session] = useSession();
-    console.log(session);
+    const [user] = useAuthState(auth);
+    const router = useRouter();
+
 //     let session=null;
+    const signOut=()=>{
+        alert("you are about to be logged out")
+        auth.signOut();
+        router.push(`/`)
+    }
     return (
         <div className="flex sticky top-0 bg-white z-50 items-center p-2 lg:px-5 shadow-md">
             {/* header left */}
@@ -37,14 +45,14 @@ function Header() {
             <div className="flex items-center sm:space-x-2 justify-center">
                 {/* profile pic */}
               {
-                  session && (
-                    <Image src={session?.user?.image} width={40} height={40}
+                  user && (
+                    <Image src={user?.photoURL} width={40} height={40}
                     layout="fixed" className="rounded-full cursor-pointer"
                     onClick={signOut}/>
                   )
               }
 
-                <p className="font-semibold whitespace-nowrap pr-2"> {session?.user?.name} </p>
+                <p className="font-semibold whitespace-nowrap pr-2"> {user?.displayName} </p>
                 <ViewGridIcon className="icon"/>
                 <ChatIcon className="icon"/>
                 <BellIcon className="icon"/>

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-function Post({key, name, message, email, timestamp, image, postImage}) {
+function Post({id, name, message, email, timestamp, image, postImage}) {
     
     return (
         <div className="flex flex-col p-2">
