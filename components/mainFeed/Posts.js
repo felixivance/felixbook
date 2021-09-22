@@ -4,12 +4,14 @@ import {db} from '../../firebase'
 
 function Posts() {
     const [uploadedPosts, loading, error]= useCollection(
-        db.collection('posts').orderBy('timestamp','desc')
+        db.collection('posts').orderBy("timestamp","desc")
     )
+    console.log("uploaded posts");
+    console.log(uploadedPosts)
     return (
-        <div>
+        <div className="">
             {
-                uploadedPosts?.docs.map(post=>{
+                uploadedPosts?.docs.map(post=>(
                     <Post
                         key={post.id}
                         name={post.data().name}
@@ -20,7 +22,7 @@ function Posts() {
                         postImage = {post.data().postImage}
 
                     />
-                })
+                ))
             }
         </div>
     )
