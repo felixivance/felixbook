@@ -5,8 +5,8 @@ function Stories() {
     const stories =[
         {
             name:'Felix Ivance',
-            src: "https://links.papareact.com/zof",
-            profile:"https://links.papareact.com/lv4"
+            src: "https://media-exp1.licdn.com/dms/image/C4D03AQFV0DqAcwr22w/profile-displayphoto-shrink_400_400/0/1631773953399?e=1637798400&v=beta&t=EWcTUi2IGsif6zxrBxmpuoJjaizog3cRo04wGwrP-Zs",
+            profile:"https://media-exp1.licdn.com/dms/image/C4D03AQFV0DqAcwr22w/profile-displayphoto-shrink_400_400/0/1631773953399?e=1637798400&v=beta&t=EWcTUi2IGsif6zxrBxmpuoJjaizog3cRo04wGwrP-Zs"
         },
         {
             name:'Elon Musk',
