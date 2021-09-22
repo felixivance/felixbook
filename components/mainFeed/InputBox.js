@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { EmojiHappyIcon,  } from '@heroicons/react/outline';
 import { CameraIcon, VideoCameraIcon } from '@heroicons/react/solid';
 import { useRef, useState } from "react";
-import { db } from '../../firebase';
+import { db, storage } from '../../firebase';
 import firebase from "firebase";
 
 function InputBox() {
@@ -28,9 +28,23 @@ function InputBox() {
             image: session.user.image,
             timestamp : firebase.firestore.FieldValue.serverTimestamp()
 
-        }).then((res)=>{
-            console.log("saved");
-            console.log(res);
+        }).then((doc)=>{
+           if(imageToPost){
+               //upload image
+               const uploadTask = storage.ref(`posts/${doc.id}`)
+               .putString(imageToPost, 'data_url');
+               
+               removeImage();
+            //event, progress, errror, success
+               uploadTask.on('state_change', null, error=>console.log(error),()=>{
+                   //when upload completes
+                   storage.ref('posts').child(doc.id).getDownloadURL().then(url=>{
+                       db.collection('posts').doc(doc.id).set({
+                           postImage: url
+                       },{merge:true})
+                   })
+               })
+           }
         }).catch((error)=>{
             console.log(error)
         })
@@ -41,10 +55,11 @@ function InputBox() {
        console.log("file selected")
         const reader = new FileReader();
         if(e.target.files[0]){
-            reader.readAsDataURL(e.target.files[0])
+            reader.readAsDataURL(e.target.files[0]); //get image in base64
         }
         reader.onload = (readerEvent)=>{
             setImageToPost(readerEvent.target.result);
+            
         }
     }
 
