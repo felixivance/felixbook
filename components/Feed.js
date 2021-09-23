@@ -2,7 +2,7 @@ import InputBox from "./mainFeed/InputBox"
 import Posts from "./mainFeed/Posts"
 import Stories from "./mainFeed/Stories"
 
-function Feed() {
+function Feed({posts}) {
     return (
         <div className="flex-grow h-screen pb-44 pt-6 mr-4 xl:mr-40 overflow-y-auto scrollbar-hide">
             {/* stories */}
@@ -12,7 +12,7 @@ function Feed() {
             {/* input */}
             <InputBox />
             {/* posts */}
-            <Posts />
+            <Posts posts={posts} />
            </div>
             
             
