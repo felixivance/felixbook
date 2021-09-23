@@ -4,6 +4,7 @@ import Feed from '../components/Feed';
 import Header from '../components/header/Header'
 import Login from '../components/Login';
 import Sidebar from '../components/Sidebar';
+import Widgets from '../components/Widgets';
 
 export default function Home() {
 
@@ -24,6 +25,7 @@ export default function Home() {
         {/* feed */}
         <Feed />
         {/* widgets */}
+        <Widgets />
       </div>
       
     </div>
