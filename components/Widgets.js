@@ -7,11 +7,13 @@ import { DotsCircleHorizontalIcon, VideoCameraIcon } from "@heroicons/react/soli
 function Widgets() {
     // get users in the system
     const [users, loading, error]= useCollection(
-        db.collection('users').orderBy("timestamp","desc")
+        db.collection('users').orderBy("lastSeen","desc")
     )
+    console.log("loading users");
+    console.log(users)
 
     return (
-        <div className="hidden lg:flex flex-col w-40">
+        <div className="hidden lg:flex flex-col w-60">
             <div className="flex justify-between items-center text-gray-500 mb-5 mt-5">
                 <h2 className="text-xl">Contacts</h2>
                 <div className="flex space-x-2">
@@ -20,13 +22,15 @@ function Widgets() {
                     <DotsCircleHorizontalIcon className="h-6" />
                 </div>
             </div>
+            
             {
-                users?.docs.map((user,key)=>{
-                    <Widget photoUrl={user.photoUrl} key={key} displayName={user.displayName} />
-                })
+                users?.docs.map((user,key)=>(
+                    <Widget photoUrl={user.data().photoUrl} key={key} displayName={user.data().displayName} />
+                ))
             }
         </div>
     )
 }
 
 export default Widgets
+
