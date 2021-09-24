@@ -1,8 +1,11 @@
 import Image from 'next/image';
 import { ChatAltIcon, ShareIcon, ThumbUpIcon } from '@heroicons/react/outline';
+import { useState} from 'react';
 
 function Post({id, name, message, email, timestamp, image, postImage}) {
-    
+    const [counter, setCounter] = useState(0);
+
+   
     return (
         <div className="flex flex-col p-2">
             <div className="bg-white mt-4 rounded-t-2xl shadow-md p-5">
@@ -30,9 +33,9 @@ function Post({id, name, message, email, timestamp, image, postImage}) {
             }
 
                 <div className="flex justify-between items-center rounded-b-2xl bg-white shadow-md text-gray-400 border-t ">
-                    <div className="inputIcon">
+                    <div className="inputIcon" onClick={()=>setCounter(counter+1)}>
                         <ThumbUpIcon className="h-4"/>
-                        <p className="text-xs sm:text-base">Like</p>
+                        <p className="text-xs sm:text-base">Like ({counter})</p>
                     </div>
                     <div className="inputIcon">
                         <ChatAltIcon className="h-4"/>
